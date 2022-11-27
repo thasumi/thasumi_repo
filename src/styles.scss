@@ -1,0 +1,25 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+  
+   .mat-card{
+    padding:0 ;
+  }
+  
+  .mat-card-content{
+    padding:5px ;
+  }
+
+  .mat-mdc-form-field-focus-overlay {
+    background-color: #7a408a !important;
+  }
+
+  .mat-mdc-form-field:not(.mat-form-field-no-animations) .mdc-line-ripple::after {
+    transition: transform 180ms cubic-bezier(0.4, 0, 0.2, 1),opacity 180ms cubic-bezier(0.4, 0, 0.2, 1) !important;
+  }
+
+  .mdc-text-field--filled .mdc-line-ripple::after {
+    border-bottom-color: #b53fafc9 !important;
+  }

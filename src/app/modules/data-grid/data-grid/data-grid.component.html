@@ -1,0 +1,79 @@
+<mat-card>
+        <h3 class="card-header title">Cadastro</h3>
+</mat-card>
+<mat-card>
+    <div>
+        <form [formGroup]="inputFormGroup">
+            <div class="input-container">
+                <div class="name-container">
+                    <mat-form-field>
+                        <mat-label>Nome</mat-label>
+                        <input type="text" matInput formControlName="name" placeholder="Ex: João Souza">
+                        <mat-error
+                            *ngIf="inputFormGroup.get('name')?.touched || !inputFormGroup.get('name')?.dirty || inputFormGroup.get('name')?.hasError('required')">
+                            Campo nome é obrigatório
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="phone-container">
+                    <mat-form-field>
+                        <mat-label>Telefone</mat-label>
+                        <input type="text" matInput formControlName="phoneNumber" placeholder="Ex: (99)9 9999-9999"
+                            mask="(00) 00000-0000 || (00) 0000-0000">
+                        <mat-error
+                            *ngIf="inputFormGroup.get('phoneNumber')?.touched || !inputFormGroup.get('phoneNumber')?.dirty || inputFormGroup.get('phoneNumber')?.hasError('required')">
+                            Campo telefone é obrigatório
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="buttons-container">
+                    <div class="buttons">
+                        <button class="button save" [disabled]="!inputFormGroup.valid"
+                            (click)="saveData()">Salvar</button>
+                    </div>
+                    <div class="buttons">
+                        <button class="button clear" (click)="inputFormGroup.reset()">Limpar</button>
+                    </div>
+                    <div class="buttons">
+                        <button class="button delete" (click)="removeData()">Excluir último</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</mat-card>
+<div>
+    <div>
+        <mat-form-field class="search">
+            <mat-label>Buscar</mat-label>
+            <input matInput (keyup)="applyFilter($event)" #input>
+        </mat-form-field>
+    </div>
+    <div class="mat-elevation-z8 grid-container">
+        <table mat-table [dataSource]="dataSource" matSort>
+
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Id</th>
+                <td mat-cell *matCellDef="let element;"> {{element.id}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Nome </th>
+                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="phoneNumber">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Telefone </th>
+                <td mat-cell *matCellDef="let element"> {{element.phoneNumber | mask: '(00) 00000-0000 || (00)
+                    0000-0000'}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+            <tr class="mat-row" *matNoDataRow>
+                <td class="no-content" colspan="4">Não há dados com o filtro "{{input.value}}"</td>
+            </tr>
+        </table>
+    </div>
+</div>
